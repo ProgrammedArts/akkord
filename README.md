@@ -1,2 +1,3 @@
-# croche
-Musical note data
+# Akkord
+
+Music library to compute notes, scales, intervals, and chords.

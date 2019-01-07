@@ -1,0 +1,36 @@
+{
+  "name": "akkord",
+  "version": "1.0.0",
+  "description": "Musical scale and chord data",
+  "main": "index.js",
+  "scripts": {
+    "build:notes": "ts-node scripts/buildNotes.ts",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProgrammedArts/croche.git"
+  },
+  "keywords": [
+    "music",
+    "theory",
+    "scale",
+    "chord"
+  ],
+  "author": "François Nguyen <https://github.com/wandering_phury>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ProgrammedArts/croche/issues"
+  },
+  "homepage": "https://github.com/ProgrammedArts/croche#readme",
+  "dependencies": {
+    "typescript": "^3.2.2"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.18",
+    "@types/jest": "^23.3.12",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.10.5",
+    "ts-node": "^7.0.1"
+  }
+}
