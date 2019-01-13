@@ -1,2 +1,2 @@
 export * from './getPitch';
-export * from './specialIntervals';
+export * from './intervals';
