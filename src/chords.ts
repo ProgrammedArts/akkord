@@ -48,7 +48,7 @@ export const createChordMajorTriad: (
  */
 export const isChordMajorTriad: (
   chord: Pitch[]
-) => void = function isChordMajorTriad(chord: Pitch[]): boolean {
+) => boolean = function isChordMajorTriad(chord: Pitch[]): boolean {
   if (chord.length !== 3) {
     return false;
   }
@@ -73,7 +73,7 @@ export const createChordMinorTriad: (
  */
 export const isChordMinorTriad: (
   chord: Pitch[]
-) => void = function isChordMinorTriad(chord: Pitch[]): boolean {
+) => boolean = function isChordMinorTriad(chord: Pitch[]): boolean {
   if (chord.length !== 3) {
     return false;
   }
@@ -98,7 +98,7 @@ export const createChordAugmentedTriad: (
  */
 export const isChordAugmentedTriad: (
   chord: Pitch[]
-) => void = function isChordAugmentedTriad(chord: Pitch[]): boolean {
+) => boolean = function isChordAugmentedTriad(chord: Pitch[]): boolean {
   if (chord.length !== 3) {
     return false;
   }
@@ -123,7 +123,7 @@ export const createChordDiminishedTriad: (
  */
 export const isChordDiminishedTriad: (
   chord: Pitch[]
-) => void = function isChordDiminishedTriad(chord: Pitch[]): boolean {
+) => boolean = function isChordDiminishedTriad(chord: Pitch[]): boolean {
   if (chord.length !== 3) {
     return false;
   }
@@ -148,7 +148,7 @@ export const createChordDominantSeventh: (
  */
 export const isChordDominantSeventh: (
   chord: Pitch[]
-) => void = function isChordDominantSeventh(chord: Pitch[]): boolean {
+) => boolean = function isChordDominantSeventh(chord: Pitch[]): boolean {
   if (chord.length !== 4) {
     return false;
   }
@@ -175,7 +175,7 @@ export const createChordMajorSeventh: (
  */
 export const isChordMajorSeventh: (
   chord: Pitch[]
-) => void = function isChordMajorSeventh(chord: Pitch[]): boolean {
+) => boolean = function isChordMajorSeventh(chord: Pitch[]): boolean {
   if (chord.length !== 4) {
     return false;
   }
@@ -202,7 +202,7 @@ export const createChordMinorSeventh: (
  */
 export const isChordMinorSeventh: (
   chord: Pitch[]
-) => void = function isChordMinorSeventh(chord: Pitch[]): boolean {
+) => boolean = function isChordMinorSeventh(chord: Pitch[]): boolean {
   if (chord.length !== 4) {
     return false;
   }
@@ -231,7 +231,7 @@ export const createChordHalfDiminishedSeventh: (
  */
 export const isChordHalfDiminishedSeventh: (
   chord: Pitch[]
-) => void = function isChordHalfDiminishedSeventh(chord: Pitch[]): boolean {
+) => boolean = function isChordHalfDiminishedSeventh(chord: Pitch[]): boolean {
   if (chord.length !== 4) {
     return false;
   }
@@ -263,7 +263,7 @@ export const createChordDiminishedSeventh: (
  */
 export const isChordDiminishedSeventh: (
   chord: Pitch[]
-) => void = function isChordDiminishedSeventh(chord: Pitch[]): boolean {
+) => boolean = function isChordDiminishedSeventh(chord: Pitch[]): boolean {
   if (chord.length !== 4) {
     return false;
   }
@@ -294,7 +294,7 @@ export const createChordMinorMajorSeventh: (
  */
 export const isChordMinorMajorSeventh: (
   chord: Pitch[]
-) => void = function isChordMinorMajorSeventh(chord: Pitch[]): boolean {
+) => boolean = function isChordMinorMajorSeventh(chord: Pitch[]): boolean {
   if (chord.length !== 4) {
     return false;
   }
@@ -323,7 +323,7 @@ export const createChordAugmentedMajorSeventh: (
  */
 export const isChordAugmentedMajorSeventh: (
   chord: Pitch[]
-) => void = function isChordAugmentedMajorSeventh(chord: Pitch[]): boolean {
+) => boolean = function isChordAugmentedMajorSeventh(chord: Pitch[]): boolean {
   if (chord.length !== 4) {
     return false;
   }
@@ -350,7 +350,7 @@ export const createChordAugmentedSeventh: (
  */
 export const isChordAugmentedSeventh: (
   chord: Pitch[]
-) => void = function isChordAugmentedSeventh(chord: Pitch[]): boolean {
+) => boolean = function isChordAugmentedSeventh(chord: Pitch[]): boolean {
   if (chord.length !== 4) {
     return false;
   }
@@ -358,4 +358,38 @@ export const isChordAugmentedSeventh: (
   return (
     isMajorThird(p0, p1) && isAugmentedFifth(p0, p2) && isMinorSeventh(p0, p3)
   );
+};
+
+/**
+ * Returns true if the input chord is a triad
+ * @param chord an array of Pitch that constitutes the chord
+ */
+export const isChordTriad: (chord: Pitch[]) => boolean = function isChordTriad(
+  chord: Pitch[]
+): boolean {
+  return [
+    isChordMajorTriad,
+    isChordMinorTriad,
+    isChordAugmentedTriad,
+    isChordDiminishedTriad,
+  ].some((triadFn: (chord: Pitch[]) => boolean): boolean => triadFn(chord));
+};
+
+/**
+ * Returns true if the input chord is a triad
+ * @param chord an array of Pitch that constitutes the chord
+ */
+export const isChordSeventh: (
+  chord: Pitch[]
+) => boolean = function isChordTriad(chord: Pitch[]): boolean {
+  return [
+    isChordMajorSeventh,
+    isChordMinorSeventh,
+    isChordDominantSeventh,
+    isChordAugmentedSeventh,
+    isChordDiminishedSeventh,
+    isChordMinorMajorSeventh,
+    isChordAugmentedMajorSeventh,
+    isChordHalfDiminishedSeventh,
+  ].some((seventhFn: (chord: Pitch[]) => boolean): boolean => seventhFn(chord));
 };

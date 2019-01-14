@@ -24,14 +24,21 @@ import {
   isChordMinorMajorSeventh,
   isChordMinorSeventh,
   isChordMinorTriad,
+  isChordTriad,
+  isChordSeventh,
 } from '../chords';
 import getPitch from '../getPitch';
 import Note from '../Note';
 
 describe('Chords', () => {
+  let rootPitch: Pitch;
+
+  beforeAll(() => {
+    rootPitch = getPitch({ octave: 4, note: Note.C });
+  });
+
   describe('Chord inversion', () => {
     it('should return the first inversion of a triad', () => {
-      const rootPitch: Pitch = getPitch({ octave: 4, note: Note.C });
       const result: Pitch[] = invertChord(createChordMajorTriad(rootPitch));
       const [p0, p1, p2]: Pitch[] = result;
       expect(p0.note).toBe(Note.E);
@@ -43,7 +50,6 @@ describe('Chords', () => {
     });
 
     it('should return the second inversion of a triad', () => {
-      const rootPitch: Pitch = getPitch({ octave: 4, note: Note.C });
       const result: Pitch[] = invertChord(
         invertChord(createChordMajorTriad(rootPitch))
       );
@@ -57,7 +63,6 @@ describe('Chords', () => {
     });
 
     it('should return the first inversion of a seventh', () => {
-      const rootPitch: Pitch = getPitch({ octave: 4, note: Note.C });
       const result: Pitch[] = invertChord(createChordMajorSeventh(rootPitch));
       const [p0, p1, p2, p3]: Pitch[] = result;
       expect(p0.note).toBe(Note.E);
@@ -71,7 +76,6 @@ describe('Chords', () => {
     });
 
     it('should return the second inversion of a seventh', () => {
-      const rootPitch: Pitch = getPitch({ octave: 4, note: Note.C });
       const result: Pitch[] = invertChord(
         invertChord(createChordMajorSeventh(rootPitch))
       );
@@ -87,7 +91,6 @@ describe('Chords', () => {
     });
 
     it('should return the third inversion of a seventh', () => {
-      const rootPitch: Pitch = getPitch({ octave: 4, note: Note.C });
       const result: Pitch[] = invertChord(
         invertChord(invertChord(createChordMajorSeventh(rootPitch)))
       );
@@ -103,9 +106,62 @@ describe('Chords', () => {
     });
   });
 
+  describe('Triads', () => {
+    let triads: Pitch[][];
+    let sevenths: Pitch[][];
+
+    beforeAll(() => {
+      triads = [
+        createChordMajorTriad,
+        createChordMinorTriad,
+        createChordAugmentedTriad,
+        createChordDiminishedTriad,
+      ].map(
+        (triadFn: (chord: Pitch) => Pitch[]): Pitch[] => triadFn(rootPitch)
+      );
+      sevenths = [
+        createChordMajorSeventh,
+        createChordMinorSeventh,
+        createChordDominantSeventh,
+        createChordAugmentedSeventh,
+        createChordDiminishedSeventh,
+        createChordMinorMajorSeventh,
+        createChordAugmentedMajorSeventh,
+        createChordHalfDiminishedSeventh,
+      ].map(
+        (seventhFn: (chord: Pitch) => Pitch[]): Pitch[] => seventhFn(rootPitch)
+      );
+    });
+
+    it('Returns true if the input chord is a triad', () => {
+      triads.forEach(
+        (triad: Pitch[]): void => {
+          expect(isChordTriad(triad)).toBe(true);
+        }
+      );
+      sevenths.forEach(
+        (seventh: Pitch[]): void => {
+          expect(isChordTriad(seventh)).toBe(false);
+        }
+      );
+    });
+
+    it('Returns true if the input chord is a seventh', () => {
+      sevenths.forEach(
+        (seventh: Pitch[]): void => {
+          expect(isChordSeventh(seventh)).toBe(true);
+        }
+      );
+      triads.forEach(
+        (triad: Pitch[]): void => {
+          expect(isChordSeventh(triad)).toBe(false);
+        }
+      );
+    });
+  });
+
   describe('Major triads', () => {
     it('should create a major triad', () => {
-      const rootPitch: Pitch = getPitch({ octave: 4, note: Note.C });
       const result: Pitch[] = createChordMajorTriad(rootPitch);
       const [p0, p1, p2]: Pitch[] = result;
       expect(p0.note).toBe(rootPitch.note);
@@ -136,7 +192,6 @@ describe('Chords', () => {
 
   describe('Minor triads', () => {
     it('should create a minor triad', () => {
-      const rootPitch: Pitch = getPitch({ octave: 4, note: Note.C });
       const result: Pitch[] = createChordMinorTriad(rootPitch);
       const [p0, p1, p2]: Pitch[] = result;
       expect(p0.note).toBe(rootPitch.note);
@@ -167,7 +222,6 @@ describe('Chords', () => {
 
   describe('Augmented triads', () => {
     it('should create an augmented triad', () => {
-      const rootPitch: Pitch = getPitch({ octave: 4, note: Note.C });
       const result: Pitch[] = createChordAugmentedTriad(rootPitch);
       const [p0, p1, p2]: Pitch[] = result;
       expect(p0.note).toBe(rootPitch.note);
@@ -198,7 +252,6 @@ describe('Chords', () => {
 
   describe('Diminished triads', () => {
     it('should create a diminished triad', () => {
-      const rootPitch: Pitch = getPitch({ octave: 4, note: Note.C });
       const result: Pitch[] = createChordDiminishedTriad(rootPitch);
       const [p0, p1, p2]: Pitch[] = result;
       expect(p0.note).toBe(rootPitch.note);
@@ -229,7 +282,6 @@ describe('Chords', () => {
 
   describe('Dominant sevenths', () => {
     it('should create a dominant seventh', () => {
-      const rootPitch: Pitch = getPitch({ octave: 4, note: Note.C });
       const result: Pitch[] = createChordDominantSeventh(rootPitch);
       const [p0, p1, p2, p3]: Pitch[] = result;
       expect(p0.note).toBe(rootPitch.note);
@@ -264,7 +316,6 @@ describe('Chords', () => {
 
   describe('Major sevenths', () => {
     it('should create a major seventh', () => {
-      const rootPitch: Pitch = getPitch({ octave: 4, note: Note.C });
       const result: Pitch[] = createChordMajorSeventh(rootPitch);
       const [p0, p1, p2, p3]: Pitch[] = result;
       expect(p0.note).toBe(rootPitch.note);
@@ -299,7 +350,6 @@ describe('Chords', () => {
 
   describe('Minor sevenths', () => {
     it('should create a minor seventh', () => {
-      const rootPitch: Pitch = getPitch({ octave: 4, note: Note.C });
       const result: Pitch[] = createChordMinorSeventh(rootPitch);
       const [p0, p1, p2, p3]: Pitch[] = result;
       expect(p0.note).toBe(rootPitch.note);
@@ -334,7 +384,6 @@ describe('Chords', () => {
 
   describe('Half diminished sevenths', () => {
     it('should create a half diminished seventh', () => {
-      const rootPitch: Pitch = getPitch({ octave: 4, note: Note.C });
       const result: Pitch[] = createChordHalfDiminishedSeventh(rootPitch);
       const [p0, p1, p2, p3]: Pitch[] = result;
       expect(p0.note).toBe(rootPitch.note);
@@ -369,7 +418,6 @@ describe('Chords', () => {
 
   describe('Diminished sevenths', () => {
     it('should create a diminished seventh', () => {
-      const rootPitch: Pitch = getPitch({ octave: 4, note: Note.C });
       const result: Pitch[] = createChordDiminishedSeventh(rootPitch);
       const [p0, p1, p2, p3]: Pitch[] = result;
       expect(p0.note).toBe(rootPitch.note);
@@ -404,7 +452,6 @@ describe('Chords', () => {
 
   describe('Minor major sevenths', () => {
     it('should create a minor major seventh', () => {
-      const rootPitch: Pitch = getPitch({ octave: 4, note: Note.C });
       const result: Pitch[] = createChordMinorMajorSeventh(rootPitch);
       const [p0, p1, p2, p3]: Pitch[] = result;
       expect(p0.note).toBe(rootPitch.note);
@@ -439,7 +486,6 @@ describe('Chords', () => {
 
   describe('Augmented major sevenths', () => {
     it('should create an augmented major seventh', () => {
-      const rootPitch: Pitch = getPitch({ octave: 4, note: Note.C });
       const result: Pitch[] = createChordAugmentedMajorSeventh(rootPitch);
       const [p0, p1, p2, p3]: Pitch[] = result;
       expect(p0.note).toBe(rootPitch.note);
@@ -474,7 +520,6 @@ describe('Chords', () => {
 
   describe('Augmented sevenths', () => {
     it('should create an augmented seventh', () => {
-      const rootPitch: Pitch = getPitch({ octave: 4, note: Note.C });
       const result: Pitch[] = createChordAugmentedSeventh(rootPitch);
       const [p0, p1, p2, p3]: Pitch[] = result;
       expect(p0.note).toBe(rootPitch.note);
