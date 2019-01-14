@@ -1,12 +1,13 @@
 {
   "name": "akkord",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Compute musical notes, pitches, interval, chords and scales",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "prepare": "tsc",
     "build": "tsc",
+    "build:docs": "typedoc --out docs/ --mode modules --exclude **/*.test.* src/",
     "test": "jest"
   },
   "repository": {
@@ -26,14 +27,13 @@
     "url": "https://github.com/ProgrammedArts/akkord/issues"
   },
   "homepage": "https://github.com/ProgrammedArts/akkord#readme",
-  "dependencies": {
-    "typescript": "^3.2.2"
-  },
   "devDependencies": {
-    "@types/node": "^10.12.18",
     "@types/jest": "^23.3.12",
+    "@types/node": "^10.12.18",
     "jest": "^23.6.0",
     "ts-jest": "^23.10.5",
-    "ts-node": "^7.0.1"
+    "ts-node": "^7.0.1",
+    "typedoc": "^0.14.1",
+    "typescript": "^3.2.2"
   }
 }

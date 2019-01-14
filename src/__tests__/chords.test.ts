@@ -1,3 +1,4 @@
+/// <reference path="../Pitch.ts" />
 import {
   createChordAugmentedMajorSeventh,
   createChordAugmentedSeventh,
