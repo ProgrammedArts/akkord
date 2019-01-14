@@ -35,7 +35,7 @@ export default class Scale {
   isWithinScale(pitches: Pitch[]): boolean;
   isWithinScale(input: Pitch[] | Pitch | Note | Note[]): boolean {
     if (Array.isArray(input)) {
-      return (input as (Pitch | Note)[]).every(this.isWithinScale.bind(this));
+      return (input as any[]).every(this.isWithinScale.bind(this));
     }
     if (typeof input === 'object' && typeof input.note === 'number') {
       return this.isWithinScale(input.note);

@@ -1,28 +1,31 @@
 {
   "name": "akkord",
   "version": "1.0.0",
-  "description": "Musical scale and chord data",
-  "main": "index.js",
+  "description": "Compute musical notes, pitches, interval, chords and scales",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build:notes": "ts-node scripts/buildNotes.ts",
+    "prepare": "tsc",
+    "build": "tsc",
     "test": "jest"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ProgrammedArts/croche.git"
+    "url": "git+https://github.com/ProgrammedArts/akkord.git"
   },
   "keywords": [
     "music",
     "theory",
     "scale",
-    "chord"
+    "chord",
+    "interval"
   ],
-  "author": "François Nguyen <https://github.com/wandering_phury>",
+  "author": "François Nguyen <https://github.com/phurytw>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ProgrammedArts/croche/issues"
+    "url": "https://github.com/ProgrammedArts/akkord/issues"
   },
-  "homepage": "https://github.com/ProgrammedArts/croche#readme",
+  "homepage": "https://github.com/ProgrammedArts/akkord#readme",
   "dependencies": {
     "typescript": "^3.2.2"
   },

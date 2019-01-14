@@ -6,8 +6,8 @@ import Note from './Note';
 let referenceFrequency: number = 440;
 let referencePianoKey: Note = Note.A;
 let referenceOctave: number = 4;
-const semitoneRatio = Math.pow(2, 1 / 12);
-const cache = {};
+const semitoneRatio: number = Math.pow(2, 1 / 12);
+const cache: { [octave: number]: { [note: number]: Pitch } } = {};
 
 /**
  * Options for getPitch

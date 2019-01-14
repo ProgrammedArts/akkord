@@ -1,7 +1,7 @@
 /**
  * Contains data of a pitch
  */
-class Pitch {
+interface Pitch {
   /** Note starting from C */
   note: number;
   /** Frequency of the pitch */
